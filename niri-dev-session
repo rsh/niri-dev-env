@@ -1,0 +1,14 @@
+#!/bin/sh
+# Niri Development Session Wrapper for GDM
+# Launches the dev version of niri from /home/rayhan/dev/3p/niri-dev
+
+NIRI_DEV_PATH="/home/rayhan/dev/3p/niri-dev/niri/target/release/niri"
+
+if [ ! -x "$NIRI_DEV_PATH" ]; then
+    echo "Error: Development niri binary not found at $NIRI_DEV_PATH"
+    echo "Build it with: cd /home/rayhan/dev/3p/niri-dev/niri && cargo build --release"
+    exit 1
+fi
+
+# Launch the dev version directly
+exec "$NIRI_DEV_PATH" --session

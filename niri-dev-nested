@@ -1,0 +1,30 @@
+#!/bin/sh
+# Launch niri-dev nested inside current niri session
+# Run this from your terminal to test changes without logging out
+
+NIRI_DEV_PATH="/home/rayhan/dev/3p/niri-dev/niri/target/release/niri"
+
+if [ ! -x "$NIRI_DEV_PATH" ]; then
+    echo "Error: Development niri binary not found at $NIRI_DEV_PATH"
+    echo "Build it with: cd /home/rayhan/dev/3p/niri-dev/niri && cargo build --release"
+    exit 1
+fi
+
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+NESTED_CONFIG="$SCRIPT_DIR/niri-nested-config.kdl"
+
+echo "Launching niri-dev nested in current session..."
+echo ""
+echo "Using nested config with Ctrl+Alt keybindings"
+echo "Pass a different config as argument to override: $0 /path/to/config.kdl"
+echo ""
+echo "Press Ctrl+C in this terminal to exit the nested session"
+echo ""
+
+# Run niri without --session flag to run it nested
+# Use nested config by default, or accept a config file path as argument
+if [ -n "$1" ]; then
+    exec "$NIRI_DEV_PATH" -c "$1"
+else
+    exec "$NIRI_DEV_PATH" -c "$NESTED_CONFIG"
+fi

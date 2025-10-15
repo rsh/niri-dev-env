@@ -1,0 +1,6 @@
+[Desktop Entry]
+Name=Niri (Dev)
+Comment=A scrollable-tiling Wayland compositor (Development Version)
+Exec=/home/rayhan/dev/3p/niri-dev/niri-dev-session
+Type=Application
+DesktopNames=niri
