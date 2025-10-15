@@ -1,6 +1,8 @@
 #!/bin/bash
 set -e
 
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+
 echo "Setting up niri-dev environment..."
 
 # Check if niri directory already exists
@@ -31,6 +33,18 @@ cd niri
 cargo build --release
 cd ..
 echo "✓ Built niri"
+
+# Generate GDM session file with correct path
+echo "Generating niri-dev.desktop with correct paths..."
+cat > niri-dev.desktop <<EOF
+[Desktop Entry]
+Name=Niri (Dev)
+Comment=A scrollable-tiling Wayland compositor (Development Version)
+Exec=$SCRIPT_DIR/niri-dev-session
+Type=Application
+DesktopNames=niri
+EOF
+echo "✓ Generated niri-dev.desktop"
 
 # Install GDM session file
 echo ""
